@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Creature";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Creatures</h2>
+
+<button type="button"  class="btn btn-primary" onclick="location.href='@Url.Action("CreatureForm", "Creature")'">
+    New Creature
+</button>
+
+
+    <table id ="creatures"class=" table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Creature
+                </th>
+                <th>
+                    Privilege
+                </th>
+                <th>
+                    Delete
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+           
+        </tbody>
+    </table>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            var table = $("#creatures").DataTable({
+                ajax: {
+                    url: "/api/creature",
+                    dataSrc:""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, creature) {
+                            return "  <a href = 'Edit/" + creature.id+"'>" + data + "</a>";
+
+                        }
+                        
+                    },
+                    {
+                        data: "privilege.privilegeName"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "  <button creature-id= " + data + " class='btn-link js-delete'>Delete</button> ";
+                        }
+                    }
+                ]
+            });
+            $("#creatures").on("click", ".js-delete",function () {
+                var button = $(this);
+                bootbox.confirm("Are sure you want to delete this creature?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/creature/" + button.attr("creature-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                           
+                            }
+                        });
+                    }
+                        });
+            })
+        })
+    </script>
+    }
+

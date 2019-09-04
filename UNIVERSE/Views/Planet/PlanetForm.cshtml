@@ -1,0 +1,55 @@
+﻿@model UNIVERSE.ViewModels.PlantFormViewModel
+@{
+    /**/
+
+    ViewBag.Title = "PlanetForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ if (Model.Id == 0)
+    {
+<div>
+    <h2>New Planet</h2>
+</div>
+
+    }
+    else
+    {
+<div>
+    <h2>Edit Planet</h2>
+</div>
+
+    }
+    }
+
+
+
+@using (Html.BeginForm("Save", "Planet"))
+{
+    <div class=" form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class=" form-group">
+        @Html.LabelFor(m => m.Galaxy)
+        @Html.TextBoxFor(m => m.Galaxy, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Galaxy)
+    </div>
+    <div class=" form-group">
+        @Html.LabelFor(m => m.Features)
+        @Html.TextBoxFor(m => m.Features ,new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Features)
+    </div>
+    <div class=" form-group">
+        @Html.LabelFor(m => m.PlanetsTypeId)
+        @Html.DropDownListFor(m => m.PlanetsTypeId, new SelectList(Model.PlanetsTypes, "Id", "Name"), "Select Types", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PlanetsTypeId)
+    </div>
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">
+        Save
+
+    </button>
+
+}

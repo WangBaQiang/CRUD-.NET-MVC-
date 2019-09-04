@@ -1,0 +1,22 @@
+﻿@model UNIVERSE.ViewModels.RandomplanetViewModel
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<p>No creature has landed in this planet.</p>
+
+
+
+{
+<ul>
+    @foreach (var creature in Model.Creatures)
+    {
+        <li>
+            <a href="/Home/About">@creature.Name</a>
+
+        </li>
+    }
+</ul>
+}

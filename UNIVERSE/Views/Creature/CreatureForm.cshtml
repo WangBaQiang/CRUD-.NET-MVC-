@@ -1,0 +1,41 @@
+﻿@model UNIVERSE.ViewModels.CreatureFormViewModel
+@{
+    ViewBag.Title = "NewForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Creature</h2>
+
+
+@using (Html.BeginForm("Save", "Creature"))
+{
+    @Html.ValidationSummary()
+    <div class=" form-group">
+        @Html.LabelFor(m => m.creature.Name)
+        @Html.TextBoxFor(m => m.creature.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.creature.Name)
+
+    </div>
+    <div class=" form-group">
+        @Html.LabelFor(m => m.creature.Birthdate)
+        @Html.TextBoxFor(m => m.creature.Birthdate, "{0:dd MM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.creature.Birthdate)
+    </div>
+    <div class=" form-group">
+        @Html.LabelFor(m => m.creature.PrivilegeId)
+        @Html.DropDownListFor(m => m.creature.PrivilegeId, new SelectList(Model.privileges, "Id", "privilegeName"), "Select Privilege Level", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.creature.PrivilegeId)
+    </div>
+    @Html.HiddenFor(m => m.creature.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">
+        Save
+
+    </button>
+    
+
+    @section scripts{
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+}

@@ -1,0 +1,22 @@
+﻿@model UNIVERSE.Models.Planet
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+<ul>
+    <li>
+        Name: @Model.Name
+    </li>
+    <li>
+        Galaxy: @Model.Galaxy
+    </li>
+    <li>
+        Feature: @Model.Features
+    </li>
+    <li>
+        Type: @Model.PlanetsType.Name
+    </li>
+</ul>
+
